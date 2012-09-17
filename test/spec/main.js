@@ -1,15 +1,16 @@
 require.config({
   shim: {
   },
+  // tests should keep the same base url as the app
+  baseUrl: '../app/scripts',
 
-  //if the module ID starts with "scripts",
-  //load it from the ../../app/scripts directory. 
+  // prefix all spec requires with spec
   paths: {
-    scripts: '../../app/scripts'
+    spec: '../../test/spec'
   }
 });
 
-require(['pqueue.test'], function() {
+require(['spec/pqueue.test', 'spec/network.test', 'spec/london.test'], function() {
 
   var runner = mocha.run();
 

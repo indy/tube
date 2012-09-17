@@ -1,4 +1,4 @@
-define(['scripts/pqueue'], function(PQueue){
+define(['pqueue'], function(PQueue){
 
   describe('PQueue', function () {
 
