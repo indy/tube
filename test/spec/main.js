@@ -10,7 +10,7 @@ require.config({
 });
 
 require(['pqueue.test'], function() {
-/*
+
   var runner = mocha.run();
 
   if(!window.PHANTOMJS) return;
@@ -50,7 +50,6 @@ require(['pqueue.test'], function() {
     var args = [].slice.call(arguments);
     alert(JSON.stringify(args));
   }
-*/
 
 });
 
