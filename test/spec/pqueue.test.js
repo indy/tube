@@ -1,8 +1,7 @@
-define(['pqueue'], function(PQueue){
+describe('PQueue', function () {
 
-  describe('PQueue', function () {
-
-    it('should push nodes onto the priority queue', function() {
+  it('should push nodes onto the priority queue', function() {
+    require(['pqueue'], function(PQueue) {
       var pq = new PQueue();
       pq.push({});
       expect(pq.length()).to.equal(1);
@@ -11,8 +10,10 @@ define(['pqueue'], function(PQueue){
       pq.push({});
       expect(pq.length()).to.equal(3);
     });
+  });
 
-    it('should pop nodes according to priority', function() {
+  it('should pop nodes according to priority', function() {
+    require(['pqueue'], function(PQueue) {
       var pq = new PQueue();
       pq.push({priority: 3});
       pq.push({priority: 10});
@@ -30,9 +31,12 @@ define(['pqueue'], function(PQueue){
       expect(pq.length()).to.equal(0);
       expect(node.priority).to.equal(3);
     });
+  });
 
-    it('should accept a comparison function', function() {
-      // a comp function in which lowest scores are returned first
+  it('should accept a comparison function', function() {
+    // a comp function in which lowest scores are returned first
+
+    require(['pqueue'], function(PQueue) {
       var compFn = function (a, b) {
         return a.priority - b.priority;
       }
@@ -53,8 +57,11 @@ define(['pqueue'], function(PQueue){
       expect(pq.length()).to.equal(0);
       expect(node.priority).to.equal(10);
     });
+  });
 
-    it('should check for the existence of a node', function() {
+  it('should check for the existence of a node', function() {
+
+    require(['pqueue'], function(PQueue) {
       var pq = new PQueue();
       var a = {priority: 3};
       var b = {priority: 10};
@@ -69,8 +76,10 @@ define(['pqueue'], function(PQueue){
       expect(pq.contains(c)).to.be.true;
       expect(pq.contains({})).to.be.false;
     });
+  });
 
-    it('should accept an identity function', function() {
+  it('should accept an identity function', function() {
+    require(['pqueue'], function(PQueue) {
       // a comp function in which lowest scores are returned first
       var compFn = function (a, b) {
         return a.priority - b.priority;
@@ -94,6 +103,5 @@ define(['pqueue'], function(PQueue){
       pq.pop();
       expect(pq.contains('a')).to.be.false;
     });
-  })
-});
-
+  });
+})

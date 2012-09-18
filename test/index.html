@@ -13,11 +13,32 @@
   <!-- assertion framework -->
   
   <script src="lib/chai.js"></script>
-      
+
+    
   <script>expect = chai.expect</script>
 
-  <script data-main="spec/main" src="../app/scripts/vendor/require.js">
-  </script> 
+  <script data-main="spec/main" src="../app/scripts/vendor/require.js"></script>
+
+  <!-- 
+       want to run tests by both viewing this file in a browser 
+       and running 'yeoman test' on the command line
+
+       source files can't be included since we're using require.js 
+       and a http://requirejs.org/docs/errors.html#mismatch error 
+       will occur.
+       
+       the test files _have_ to invoke Mocha's 'describe' and 'it'
+       functions outside of any 'require' functions, otherwise the
+       assertions will be ignored
+    -->
+
+  <!-- include spec files here... -->
+  <script src="spec/pqueue.test.js"></script>
+  <script src="spec/network.test.js"></script>
+  <script src="spec/london.test.js"></script>
+
+  <!-- trigger the mocha runner -->
+  <script src="runner/mocha.js"></script>
 
 </body>
 </html>
