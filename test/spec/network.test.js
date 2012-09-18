@@ -74,39 +74,37 @@ describe('A* development', function () {
 
   describe('buildStations', function () {
 
-    it('should build all the Station objects', function () {
+    var testtube;
+    beforeEach(function() {
       require(['network'], function(Network) {
-        var testtube = new Network(stationData, connectionData);
-        expect(testtube.stations).to.be.a('object');
+        testtube = new Network(stationData, connectionData);
       });
+    });
+
+    it('should build all the Station objects', function () {
+      expect(testtube.stations).to.be.a('object');
     });
 
     it('should fill the stations with sane values', function () {
-      require(['network'], function(Network) {
-        var testtube = new Network(stationData, connectionData);
-        var stations = testtube.stations;
+      var stations = testtube.stations;
 
-        // sanity check
-        var stationA = stations.a;
-        expect(stationA.name).to.equal("a");
-        expect(stationA.lng).to.equal(20);
-        expect(stationA.lat).to.equal(5);
-      });
+      // sanity check
+      var stationA = stations.a;
+      expect(stationA.name).to.equal("a");
+      expect(stationA.lng).to.equal(20);
+      expect(stationA.lat).to.equal(5);
     });
 
     it('should build connection structures', function () {
-      require(['network'], function(Network) {
-        var testtube = new Network(stationData, connectionData);
-        var stations = testtube.stations;
+      var stations = testtube.stations;
 
-        var stationA = stations.a;
-        expect(stationA.connections).to.have.length(1);
+      var stationA = stations.a;
+      expect(stationA.connections).to.have.length(1);
 
-        var conn = stationA.connections[0];
-        expect(conn.line).to.equal("Alpha");
-        expect(conn.direction).to.equal("S");
-        expect(conn.dest.name).to.equal("e");
-      });
+      var conn = stationA.connections[0];
+      expect(conn.line).to.equal("Alpha");
+      expect(conn.direction).to.equal("S");
+      expect(conn.dest.name).to.equal("e");
     });
   });
 
@@ -137,56 +135,47 @@ describe('A* development', function () {
   }
 
   describe('route', function() {
-    it('should find a valid route', function () {
-
+    
+    var t;
+    beforeEach(function() {
       require(['network'], function(Network) {
-        var t = new Network(stationData, connectionData);
-        expectedRoute(t, "a", "e", ["a", "e"]);
-        expectedRoute(t, "a", "i", ["a", "e", "f", "i"]);
-        expectedRoute(t, "o", "i", ["o", "l", "m", "i"]);
-        expectedRoute(t, "l", "j", ["l", "f", "j"]);
-        expectedRoute(t, "d", "n", ["d", "e", "f", "i", "m", "n"]);
+        t = new Network(stationData, connectionData);
       });
+    });
 
+    it('should find a valid route', function () {
+      expectedRoute(t, "a", "e", ["a", "e"]);
+      expectedRoute(t, "a", "i", ["a", "e", "f", "i"]);
+      expectedRoute(t, "o", "i", ["o", "l", "m", "i"]);
+      expectedRoute(t, "l", "j", ["l", "f", "j"]);
+      expectedRoute(t, "d", "n", ["d", "e", "f", "i", "m", "n"]);
     });
 
     it('should find a valid route for stations in a different case', function () {
-      require(['network'], function(Network) {
-        var t = new Network(stationData, connectionData);
-        expectedRoute(t, "A", "E", ["a", "e"]);
-        expectedRoute(t, "A", "I", ["a", "e", "f", "i"]);
-        expectedRoute(t, "O", "I", ["o", "l", "m", "i"]);
-        expectedRoute(t, "L", "J", ["l", "f", "j"]);
-        expectedRoute(t, "D", "N", ["d", "e", "f", "i", "m", "n"]);
-      });
+      expectedRoute(t, "A", "E", ["a", "e"]);
+      expectedRoute(t, "A", "I", ["a", "e", "f", "i"]);
+      expectedRoute(t, "O", "I", ["o", "l", "m", "i"]);
+      expectedRoute(t, "L", "J", ["l", "f", "j"]);
+      expectedRoute(t, "D", "N", ["d", "e", "f", "i", "m", "n"]);
     });
-
-    describe('pathalogial psi route', function() {
-      it('find a sensible route between n and w', function () {
-        require(['network'], function(Network) {
-          var t = new Network(stationData, connectionData);
-          expectedRoute(t, "n", "v", ["n", "w", "v"]);
-        });
-      });
-    });
-
 
     it('should return an error when given unknown stations', function() {
-      require(['network'], function(Network) {
-        var testtube = new Network(stationData, connectionData);
-
-        var r = testtube.route("fakeStation1", "fakeStation2");
+        var r = t.route("fakeStation1", "fakeStation2");
         expect(r.success).to.be.false;
 
-        r = testtube.route("fakeStation1", "b");
+        r = t.route("fakeStation1", "b");
         expect(r.success).to.be.false;
         expect(r.message).to.equal("unknown starting station: fakeStation1");
 
-        r = testtube.route("a", "fakeStation2");
+        r = t.route("a", "fakeStation2");
         expect(r.success).to.be.false;
         expect(r.message).to.equal("unknown destination station: fakeStation2");
-      });
     });
+
+    it('find a sensible route between n and w', function () {
+      expectedRoute(t, "n", "v", ["n", "w", "v"]);
+    });
+
   });
 })
 
