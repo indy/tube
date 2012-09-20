@@ -10,5 +10,5 @@ require.config({
 });
  
 require(['app'], function(app) {
-  console.log(app);
+  app.init();
 });
