@@ -80,8 +80,8 @@ define(['network', 'stations', 'connections'], function(Network, s, c) {
       fromUI = $("#startStation");
       toUI = $("#destStation");
       
-//      fromUI.autocomplete({ source: data });
-//      toUI.autocomplete({ source: data });
+      fromUI.typeahead({ source: data });
+      toUI.typeahead({ source: data });
 
       // dev purposes only
       fromUI.val("Archway");
@@ -90,6 +90,4 @@ define(['network', 'stations', 'connections'], function(Network, s, c) {
       $("#tube-form").submit(tubeFormSubmit);
     }
   };
-
-//  return {foo: 'hello'};
 });
