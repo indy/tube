@@ -1,32 +1,7 @@
-define(['vendor/d3.v2.min'], function(d3) {
+define(['vendor/d3.v2.min', 'tube'], function(d3, tube) {
 
   var svgParentElement;
   var svg;
-
-  var notability = {
-    last: 4,
-    first: 3,
-    changeLine: 2,
-    changeDirection: 1,
-    none: 0
-  };
-
-  function stationNotability(station, index, route) {
-    if(index === 0) {
-      return notability.first;
-    }
-    if(index === route.length - 1) {
-      return notability.last;
-    }
-    var prev = route[index - 1];
-    if(prev.connection.line !== station.connection.line) {
-      return notability.changeLine;
-    }
-    if(prev.connection.direction !== station.connection.direction) {
-      return notability.changeDirection;
-    }
-    return notability.none;
-  }
 
   // the height of each station list element
   var stationGap = 50;
@@ -85,31 +60,7 @@ define(['vendor/d3.v2.min'], function(d3) {
     return node.append("text")
       .attr("class", "description")
       .text(function(s, i) {
-
-        var prev = route[i-1];
-
-        switch(stationNotability(s, i, route)) {
-        
-        case notability.first:
-          return s.connection.line + " line";
-          break;
-
-        case notability.last:
-          return "Reached destination"
-          break;
-
-        case notability.changeLine:
-          var info = s.connection.line + " line " + s.connection.direction;
-          return "Change from " + prev.connection.line +  " line to the " + info;
-          break;
-
-        case notability.changeDirection:
-          return "Make sure it's the " + s.connection.direction + " train";
-          break;
-
-        default: return "";
-        }
-        
+        return tube.routeDescription(i, route);
       })
 //      .attr("stroke", "#888888")
       .attr("dy", "1.6em")
@@ -137,7 +88,6 @@ define(['vendor/d3.v2.min'], function(d3) {
     },
 
     showRoute: function(route) {
-
       // resize svg element to fit entire route
       resizeSVG(route);
 

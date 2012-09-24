@@ -1,12 +1,8 @@
-define(['network', 'stations', 'connections', 'vis'], function(Network, stations, connections, vis) {
-
-  var tube;
-
-  var fromUI;
-  var toUI;
+define(['tube', 'vis'], function(tube, vis) {
 
   function findTubeRoute(e) {
-    var r = tube.route(fromUI.val(), toUI.val());
+    var r = tube.route($("#startStation").val(), $("#destStation").val());
+
     if(r.success === true) {
       vis.showRoute(r.path);
     } else {
@@ -18,19 +14,15 @@ define(['network', 'stations', 'connections', 'vis'], function(Network, stations
 
   return {
     init: function() {
-
-      tube = new Network(stations, connections);
       vis.init("#sheet");
 
-      var stationNames = tube.connectedStations.map(function(station) {
-        return station.name;
-      });
+      var stationNames = tube.stationNames();
 
-      fromUI = $("#startStation");
+      var fromUI = $("#startStation");
       fromUI.typeahead({ source: stationNames });
-      fromUI.val("Archway");
+      fromUI.val("Upminster");
 
-      toUI = $("#destStation");
+      var toUI = $("#destStation");
       toUI.typeahead({ source: stationNames });
       toUI.val("Marble Arch");
 
