@@ -11,8 +11,6 @@
         <meta name="viewport" content="width=device-width"/>
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        
         <link rel="stylesheet" href="styles/main.css"/>
         <script src="scripts/vendor/modernizr.min.js"></script>
     </head>
@@ -21,42 +19,48 @@
 
     <div class="container">
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit">
+        <div class="row">
+
+          <div class="span5">
+
         <h1>Tube</h1>
 
-<form id="tube-form" class="form-horizontal">
-  <div class="control-group">
-    <label class="control-label" for="startStation">Starting Station</label>
-    <div class="controls">
-      <input type="text" id="startStation">
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="destStation">Destination Station</label>
-    <div class="controls">
-      <input type="text" id="destStation">
-    </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary btn-large">Go</button>
-    </div>
-  </div>
-</form>
+        <div class="copy copy-headline">
+          <p>A web app for planning journeys on the London Underground</p>
+        </div>
+
+        <form id="tube-form" class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label" for="startStation">Starting Station</label>
+            <div class="controls">
+              <input type="text" id="startStation">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="destStation">Destination Station</label>
+            <div class="controls">
+              <input type="text" id="destStation">
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <button type="submit" class="btn btn-primary btn-large">Show Route</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="copy copy-body">
+          <p>
+            Tube is a purely client side web app for finding routes between London Underground stations.
+            Finds routes on the London Underground and displays them in SVG using the D3 graphics library</p>
+        </div>
+
+      </div> <!-- span5 -->
+
+      <div class="span7" id="sheet"></div>
 
 
-      </div>
-
-      <div id="sheet"></div>
-
-      <!-- Example row of columns -->
-      <div class="row">
-        <div id="results" class="span12">
-        </div> <!-- results -->
-      </div>   <!-- row -->
-
-      <hr>
+      </div> <!-- row -->
 
       <footer>
         <p>&copy; Inderjit Gill 2012</p>
