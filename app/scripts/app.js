@@ -20,11 +20,11 @@ define(['tube', 'vis'], function(tube, vis) {
 
       var fromUI = $("#startStation");
       fromUI.typeahead({ source: stationNames });
-      fromUI.val("Upminster");
+      fromUI.val("Whitechapel");
 
       var toUI = $("#destStation");
       toUI.typeahead({ source: stationNames });
-      toUI.val("Marble Arch");
+      toUI.val("Tower Hill");
 
       $("#tube-form").submit(findTubeRoute);
       findTubeRoute();

@@ -57,7 +57,10 @@ define(['pqueue'], function(PQueue) {
     };
 
     var identFn = function (pathNode, obj) {
-      return pathNode.station.lowercaseName === obj.lowercaseName;
+      var connectingStation = obj[0];
+      var connection = obj[1];
+      var prevC = obj[2];
+      return pathNode.station.lowercaseName === connectingStation.lowercaseName && pathNode.connection === connection && prevConnection(pathNode.fromPathNode) === prevC;
     };
 
     // the 'open' priority queue stores the pathNodes on the frontier
@@ -67,6 +70,13 @@ define(['pqueue'], function(PQueue) {
   function constructConnection(line, direction, opposingDirection, from, to) {
     from.addConnection(new Connection([line, direction, to]));
     to.addConnection(new Connection([line, opposingDirection, from]));
+  }
+
+  function prevConnection(pathNode) {
+    if(pathNode.connection === undefined) {
+      return "";
+    }
+    return pathNode.connection.line;
   }
 
   // would going to the next connection mean switching lines?
@@ -204,6 +214,7 @@ define(['pqueue'], function(PQueue) {
 
       var switchingLinesPenalty = 5;
       
+      var _c = 0;
 
       open.push(new PathNode([fromStation], g, h, null));
 
@@ -211,8 +222,12 @@ define(['pqueue'], function(PQueue) {
         currentPathNode = open.pop();   // the pathNode with the lowest f score
         currentStation = currentPathNode.station;
         if(currentStation.lowercaseName === toLower) {
+//          console.log("woo hoo");
           // found a valid route, see if it's the best one
           if(bestPathNode === null || currentPathNode.g < bestPathNode.g) {
+//            console.log("bestPathNode");
+//            console.log(currentPathNode);
+//            console.log("/bestPathNode");
             bestPathNode = currentPathNode;
           } 
         }
@@ -227,20 +242,32 @@ define(['pqueue'], function(PQueue) {
 
           if(visited.hasOwnProperty(connectingStation.name)) {
             // already visited this node
-          } else if(!open.contains(connectingStation)) {
-            // add to open queue if not already in there
-            g = currentPathNode.g + travelTime(currentStation, 
-                                               connectingStation);
-            h = travelTime(connectingStation, toStation);
+          } else {
 
-            if(switchingLines(currentPathNode, connection)) {
-              h += switchingLinesPenalty;
+            var bla = open.contains([connectingStation, connection, prevConnection(currentPathNode)]);
+            if(!bla) {
+              // add to open queue if not already in there
+              g = currentPathNode.g + travelTime(currentStation, 
+                                                 connectingStation);
+              h = travelTime(connectingStation, toStation);
+
+              if(switchingLines(currentPathNode, connection)) {
+                h += switchingLinesPenalty;
+//                console.log(_c + ": penalty " + h);
+                _c++;
+              }
+
+//              console.log("pushing: " + connectingStation.lowercaseName + ", " + connection.line + " g: " + g + " h: " + h);
+              
+//              console.log(prevConnection(currentPathNode));
+
+              open.push(new PathNode([connectingStation, connection], 
+                                     g, 
+                                     h, 
+                                     currentPathNode));
             }
 
-            open.push(new PathNode([connectingStation, connection], 
-                                   g, 
-                                   h, 
-                                   currentPathNode));
+
           }
         });
       }
