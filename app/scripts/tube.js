@@ -1,7 +1,7 @@
 define(['network', 'stations', 'connections'], function(Network, stations, connections) {
 
   // create a Network using the London Underground's stations and connections
-  var underground = new Network(stations, connections);
+  var network = new Network(stations, connections);
 
   function debug(route) {
     var i;
@@ -14,6 +14,7 @@ define(['network', 'stations', 'connections'], function(Network, stations, conne
         changes += 1;
       }      
     }
+    console.log(route);
     console.log("changes = " + changes);
   }
 
@@ -46,15 +47,20 @@ define(['network', 'stations', 'connections'], function(Network, stations, conne
 
   return {
     stationNames: function() {
-      var names = underground.connectedStations.map(function(station) {
+      var names = network.connectedStations.map(function(station) {
         return station.name;
       });
       return names;
     },
+
     route: function(from, to) {
-      var r = underground.route(from, to);
+      var r = network.route(from, to);
       debug(r.path);
       return r;
+    },
+
+    network: function() {
+      return network;
     },
 
     // return a description that should be displayed 
