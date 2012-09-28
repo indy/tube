@@ -55,7 +55,7 @@ define(['network', 'stations', 'connections'], function(Network, stations, conne
 
     route: function(from, to) {
       var r = network.route(from, to);
-      debug(r.path);
+//      debug(r.path);
       return r;
     },
 

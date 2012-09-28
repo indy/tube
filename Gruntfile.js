@@ -12,14 +12,18 @@ module.exports = function( grunt ) {
 
     // specify an alternate install location for Bower
     bower: {
-      dir: 'app/scripts/vendor'
+      dir: 'app/components'
     },
 
     // Coffee to JS compilation
     coffee: {
-      dist: {
-        src: 'app/scripts/**/*.coffee',
-        dest: 'app/scripts'
+      compile: {
+        files: {
+          'temp/scripts/*.js': 'app/scripts/**/*.coffee' 
+        },
+        options: {
+          basePath: 'app/scripts'
+        }
       }
     },
 
@@ -43,14 +47,14 @@ module.exports = function( grunt ) {
     },
 
     // headless testing through PhantomJS
-    mocha: {
+    jasmine: {
       all: ['test/**/*.html']
     },
 
     // default watch configuration
     watch: {
       coffee: {
-        files: '<config:coffee.dist.src>',
+        files: 'app/scripts/**/*.coffee',
         tasks: 'coffee reload'
       },
       compass: {
@@ -180,6 +184,6 @@ module.exports = function( grunt ) {
   });
 
   // Alias the `test` task to run the `mocha` task instead
-  grunt.registerTask('test', 'mocha');
+  grunt.registerTask('test', 'server:phantom jasmine');
 
 };
