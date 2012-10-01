@@ -1,7 +1,7 @@
-Tube
+[Tube](http://indy.github.com/tube/)
 ====
 
-Tube is a purely client-side web app that implements the A* algorithm for finding routes between stations on the London Underground
+[Tube](http://indy.github.com/tube/) is a purely client-side web app that implements the A* algorithm for finding routes between stations on the London Underground
 
 It's developed with the following technologies:
 
