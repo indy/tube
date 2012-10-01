@@ -27,6 +27,14 @@
 
 @import "compass_twitter_bootstrap/responsive-utilities";
 
+  #title {
+    margin-bottom: 2em;
+  }
+  h1 .copy-headline {
+    font-size: 50%;
+    color: #999999;
+    margin-left: 0.5em;
+  }
 
 // MEDIA QUERIES
 // ------------------

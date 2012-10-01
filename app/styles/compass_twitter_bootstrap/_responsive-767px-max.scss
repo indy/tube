@@ -10,6 +10,11 @@
     padding-left: 20px;
     padding-right: 20px;
   }
+
+  .copy-body {
+    display: none;
+  }
+
   // Negative indent the now static "fixed" navbar
   .navbar-fixed-top,
   .navbar-fixed-bottom {
@@ -109,6 +114,13 @@
 // ---------------------
 
 @media (max-width: 480px) {
+  #title {
+    margin-bottom: 0em;
+  }
+
+  .copy-headline {
+    display: none;
+  }
 
   // Smooth out the collapsing/expanding nav
   .nav-collapse {

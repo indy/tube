@@ -5,6 +5,18 @@
 
 @media (min-width: 768px) and (max-width: 979px) {
 
+  #sheet {
+    margin-top: 2em;
+  }
+
+  .control-label {
+    float: none !important; 
+    text-align: left !important; 
+  }
+  .controls {
+    margin-left: 0 !important;
+  }
+
   // Fixed grid
   @include grid-core($gridColumnWidth768, $gridGutterWidth768);
 
