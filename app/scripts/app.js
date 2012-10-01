@@ -1,8 +1,7 @@
 define(['tube', 'vis'], function(tube, vis) {
 
-  function findTubeRoute(e) {
-    var r = tube.route($("#startStation").val(), $("#destStation").val());
-
+  function getRoute(from, to) {
+    var r = tube.route(from, to);
     if(r.success === true) {
       vis.showRoute(r.path);
     } else {
@@ -20,14 +19,17 @@ define(['tube', 'vis'], function(tube, vis) {
 
       var fromUI = $("#startStation");
       fromUI.typeahead({ source: stationNames });
-      fromUI.val("Whitechapel");
+      fromUI.val("Marble Arch");
 
       var toUI = $("#destStation");
       toUI.typeahead({ source: stationNames });
-      toUI.val("Tower Hill");
+      toUI.val("Aldgate");
 
-      $("#tube-form").submit(findTubeRoute);
-      findTubeRoute();
+      $("#tube-form").submit(function() {
+        getRoute(fromUI.val(), toUI.val());
+        return false;
+      });
+//      getRoute(fromUI.val(), toUI.val());
     }
   };
 });
