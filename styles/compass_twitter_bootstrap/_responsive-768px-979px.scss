@@ -1,0 +1,31 @@
+//
+// Responsive: Tablet to desktop
+// --------------------------------------------------
+
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+  #sheet {
+    margin-top: 2em;
+  }
+
+  .control-label {
+    float: none !important; 
+    text-align: left !important; 
+  }
+  .controls {
+    margin-left: 0 !important;
+  }
+
+  // Fixed grid
+  @include grid-core($gridColumnWidth768, $gridGutterWidth768);
+
+  // Fluid grid
+  @include grid-fluid($fluidGridColumnWidth768, $fluidGridGutterWidth768);
+
+  // Input grid
+  @include grid-input($gridColumnWidth768, $gridGutterWidth768);
+
+  // No need to reset .thumbnails here since it's the same $gridGutterWidth
+
+}
