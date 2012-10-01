@@ -1,6 +1,5 @@
-[Twitter Bootstrap](http://twitter.github.com/bootstrap) [![Build Status](https://secure.travis-ci.org/twitter/bootstrap.png)](http://travis-ci.org/twitter/bootstrap)
-=================
-
+Tube
+====
 
 Tube is a purely client-side web app that implements the A* algorithm for finding routes between stations on the London Underground
 
