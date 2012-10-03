@@ -29,6 +29,7 @@ define(['tube', 'vis'], function(tube, vis) {
         getRoute(fromUI.val(), toUI.val());
         return false;
       });
+//      getRoute(fromUI.val(), toUI.val());
     }
   };
 });

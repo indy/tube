@@ -14,11 +14,13 @@ define(['vendor/d3.v2.min', 'tube'], function(d3, tube) {
 
   function resizeSVG(route) {
     var height = (stationGap * route.length) + 20;
-    vis.selectAll("svg")
-      .attr("height", height)
-      .attr("width", 560);
+    var svg = $("svg");
+
     parentElement.css("height", height);
+    svg.css("height", height);
+    svg.css("width", 560);
   }
+
 
   function showWithSVG(route) {
     // resize svg element to fit entire route
